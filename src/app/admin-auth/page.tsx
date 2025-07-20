@@ -1,3 +1,4 @@
+'use client'
 import React, {useState} from 'react'
 import AuthForm from "@/components/AuthForm";
 import {GithubIcon, TwitterIcon} from "lucide-react";
