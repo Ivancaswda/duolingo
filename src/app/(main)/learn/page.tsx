@@ -18,6 +18,7 @@ import Quests from "@/components/Quests";
 import {Loader2Icon} from "lucide-react";
 import { auth} from "@clerk/nextjs/server";
 import getServerUser from "@/lib/auth-server";
+import {redirect} from "next/navigation";
 
 const LearnPage = async () => {
     const user = await getServerUser()
@@ -25,18 +26,26 @@ const LearnPage = async () => {
     console.log(userId)
     console.log(user)
     if (!user) {
-        return <Loader2Icon className='animate-spin text-green-500'/>
+        return <div className='flex items-center justify-center w-full h-full
+        '>
+            <Loader2Icon className='animate-spin text-green-500'/>
+        </div>
     }
     const userProgressData = await getUserProgress();
      console.log(userProgressData)
 
+   if (!userProgressData) {
+       redirect('/sign-in')
+   }
 
     const courseProgressData = await getCourseProgress();
      console.log(courseProgressData)
 
     const unitsData = await getUnits()
     console.log(unitsData)
-
+    if (!unitsData || !courseProgressData) {
+        redirect('/courses')
+    }
     const lessonPercentageData = await getLessonPercentage();
     console.log(lessonPercentageData)
 

@@ -13,7 +13,7 @@ export const createStripeUrl = async () => {
     const user = await getServerUser()
     const userId = user?.userId
     const email = user?.email
-    if (!userId) return
+    if (!userId || !email) return
 
     const userSubscription = await getUserSubscription()
 
@@ -52,6 +52,8 @@ export const createStripeUrl = async () => {
         success_url: returnUrl,
         cancel_url: returnUrl
     })
+    console.log(stripeSession.url)
+
 
     return {data: stripeSession.url}
 

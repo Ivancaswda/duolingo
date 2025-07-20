@@ -31,9 +31,20 @@ export async function POST(req: Request) {
             session.subscription as string
         )
 
+        console.log(session)
+        console.log('it`s ession of stripee!!!')
+
+
         if (!session?.metadata?.userId) {
             return  new NextResponse("User Id is required", {status: 400})
+
         }
+
+        console.log(subscription)
+        console.log(session.metadata.userId)
+        console.log(session)
+
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 
         await db.insert(userSubscription).values({
             userId: session.metadata.userId,
@@ -43,12 +54,14 @@ export async function POST(req: Request) {
             stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000)
         })
 
+
+
     }
 
     if (event.type === 'invoice.payment_succeeded') {
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string)
 
-
+        console.log(subscription)
         await db.update(userSubscription).set({
             stripePriceId: subscription.items.data[0].price.id,
             stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000)

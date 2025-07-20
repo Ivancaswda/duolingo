@@ -1,5 +1,5 @@
 'use server'
-import {auth, currentUser} from "@clerk/nextjs/server";
+
 import {getCourseById, getUserProgress, getUserSubscription} from "../db/queries";
 import {userProgress, challengeProgress, challenges} from "../db/schema";
 import {revalidatePath} from "next/cache";

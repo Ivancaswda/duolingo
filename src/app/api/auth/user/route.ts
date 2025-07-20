@@ -14,9 +14,9 @@ export async function GET(req: Request) {
 
     try {
         const decoded = verifyToken(token) as { email: string }
-        console.log(decoded)
+
         const users = await db.select().from(userProgress).where(eq(userProgress.email, decoded.email)).limit(1)
-        console.log(users)
+
         const user = users[0]
 
         if (!user) {
