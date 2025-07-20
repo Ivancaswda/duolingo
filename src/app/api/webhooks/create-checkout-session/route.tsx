@@ -6,7 +6,7 @@ import Stripe from "stripe";
 import getServerUser from "@/lib/auth-server";
 
 
-const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
     apiVersion: "2024-04-10",
 });
 
@@ -21,7 +21,7 @@ export async function POST() {
             payment_method_types: ["card"],
             line_items: [
                 {
-                    price: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID!, // Продукт с 2GB
+                    price: 20,
                     quantity: 1,
                 },
             ],
