@@ -1,60 +1,37 @@
 'use server'
+// /actions/user-subscription.ts
 
-
-import {stripe} from "@/lib/stripe" ;
-import {absoluteUrl} from "@/lib/utils";
-import {getUserSubscription} from "../db/queries";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
 import getServerUser from "@/lib/auth-server";
 
-const returnUrl = absoluteUrl('shop')
 
-
-export const createStripeUrl = async () => {
-    const user = await getServerUser()
-    const userId = user?.userId
-    const email = user?.email
-    if (!userId || !email) return
-
-    const userSubscription = await getUserSubscription()
-
-    if (userSubscription && userSubscription.stripeCustomerId) {
-        const stripeSession = await stripe.billingPortal.sessions.create({
-            customer: userSubscription.stripeCustomerId,
-            return_url: returnUrl
-        })
-
-        return {data: stripeSession.url}
+const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
+    apiVersion: "2024-04-10",
+});
+export async function createStripeUrl() {
+    const user = await getServerUser();
+    if (!user) {
+        throw new Error("Unauthorized");
     }
 
-    const stripeSession = await stripe.checkout.sessions.create({
-        mode: 'subscription',
-        payment_method_types: ['card'],
-        customer_email: email,
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
         line_items: [
             {
+                price: process.env.STRIPE_PRICE_ID!, // ✅ НЕ число 20, а `price id` из Stripe
                 quantity: 1,
-                price_data: {
-                    currency:'EUR',
-                    product_data: {
-                        name: 'duolingo prem',
-                        description: 'unlimited hearts'
-                    },
-                    unit_amount: 2000,
-                    recurring: {
-                        interval: 'month'
-                    }
-                }
-            }
+            },
         ],
+        mode: "payment", // или "payment" если одноразовая
+        success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/failed`,
         metadata: {
-            userId: userId
+            userId: user.userId,
+            email: user.email || "",
         },
-        success_url: returnUrl,
-        cancel_url: returnUrl
-    })
-    console.log(stripeSession.url)
+    });
 
-
-    return {data: stripeSession.url}
-
+    return { data: session.url };
 }
+

@@ -1,11 +1,12 @@
 // lib/auth-server.ts
+
 import { cookies } from "next/headers"
 import jwt from "jsonwebtoken"
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret"
+const JWT_SECRET = process.env.JWT_SECRET || "your-secr7JUINet"
 
 async function getServerUser() {
-    const token = await cookies().get("token")?.value
+    const token = (await cookies()).get("token")?.value
 
     if (!token) return null
 
