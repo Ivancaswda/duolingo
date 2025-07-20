@@ -24,8 +24,8 @@ export async function createStripeUrl() {
             },
         ],
         mode: "payment", // или "payment" если одноразовая
-        success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/failed`,
+        success_url: `${process.env.NEXT_PUBLIC_URL_APP}/success`,
+        cancel_url: `${process.env.NEXT_PUBLIC_URL_APP}/failed`,
         metadata: {
             userId: user.userId,
             email: user.email || "",
