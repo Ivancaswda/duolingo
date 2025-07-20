@@ -11,17 +11,17 @@ const Promo = () => {
                     <Image src='/unlimited.png' alt='pro'
                     width={26} height={26}
                     />
-                    <h3 className='font-bold text-lg'>Upgrade to Pro</h3>
+                    <h3 className='font-bold text-lg'>Обнови до Премиума</h3>
 
                 </div>
                 <p className='text-muted-foreground'>
-                    get unlimited hearts and more!
+                   Получи бесконечные сердца и многое другое!
                 </p>
             </div>
 
             <Button asChild className='w-full'  variant='super'>
                 <Link href='/shop'>
-                    Upgrade now
+                    Обновить сейчас!
                 </Link>
             </Button>
         </div>

@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     eslint: {
         ignoreDuringBuilds: true, // ✅ Пропускает ESLint при build
     },
+    images: {
+        domains: ["cdn-icons-png.flaticon.com", 'avatars.mds.yandex.net'], // <--- Добавлено сюда
+    },
   async headers() {
       return [
           {

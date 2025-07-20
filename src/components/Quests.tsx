@@ -15,11 +15,11 @@ const Quests = ({points}: Props) => {
         <div className='border-2 rounded-xl p-4 space-y-4'>
            <div className='flex items-center justify-between w-full space-y-2'>
                <h3 className='font-bold text-lg'>
-                   Quests
+                   Задания
                </h3>
                <Link href='/quests'>
                    <Button size='sm' variant='primaryOutline'>
-                View all
+               Посмотреть все
                    </Button>
                </Link>
            </div>
@@ -30,7 +30,7 @@ const Quests = ({points}: Props) => {
                         const progress = (points / quest.value) * 100
                         return (
                             <div key={index} className='flex items-center w-full pb-4 gap-x-3 '>
-                                <Image src='/points.png'
+                                <Image src='https://d35aaqx5ub95lt.cloudfront.net/images/gems/45c14e05be9c1af1d7d0b54c6eed7eee.svg'
                                        alt='points'
                                        width={40}
                                        height={40}

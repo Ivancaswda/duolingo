@@ -19,7 +19,7 @@ const Header = ({hearts, percentage, hasActiveSubscription}: Props) => {
 
             <Progress value={percentage}/>
             <div className='text-rose-500 flex items-center font-bold'>
-                    <Image alt='heart' src='/heart.svg' width={28} height={28} className='mr-2'/>
+                    <Image alt='heart' src='https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg' width={28} height={28} className='mr-2'/>
                 {hasActiveSubscription ? <Infinity className='h-6 w-6 stroke-[3] shrink-0'/> : hearts}
             </div>
 

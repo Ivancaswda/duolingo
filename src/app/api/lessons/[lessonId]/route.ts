@@ -12,11 +12,7 @@ export const GET = async (req: Request, {params}: {params: {lessonId: number}}) 
 
     if (!user)  return  new NextResponse('Unauthorized', {status: 403})
 
-    const isAdmin = getIsAdmin()
 
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 403})
-    }
 
 
 
@@ -34,11 +30,7 @@ export const PUT = async (req: Request, {params}: {params: {lessonId: number}}) 
 
     if (!user)  return  new NextResponse('Unauthorized', {status: 403})
 
-    const isAdmin = getIsAdmin()
 
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 403})
-    }
 
     const body = await req.json()
 
@@ -57,10 +49,7 @@ export const DELETE = async (req: Request, {params}: {params: {lessonId: number}
 
     if (!user)  return  new NextResponse('Unauthorized', {status: 403})
 
-    const isAdmin = getIsAdmin()
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 403})
-    }
+
     const data = await db.delete(lessons).where(eq(lessons.id, params.lessonId)).returning()
 
     return NextResponse.json(data[0])

@@ -17,15 +17,15 @@ const buttonVariants = cva(
         primaryOutline:
             "bg-white text-sky-500 hover:bg-slate-100",
          secondary:
-          "bg-green-500 text-primary-foreground hover:bg-green-500/90 border-green-600 border-b-4 active:border-b-0",
+          "bg-[rgba(88,204,2,1)] text-primary-foreground hover:bg-[rgba(88,204,2,1)]/90 border-[rgba(88,204,2,1)]/90 border-b-4 active:border-b-0",
         secondaryOutline:
-            "bg-white text-green-500 hover:bg-slate-100",
+            "bg-white text-[rgba(88,204,2,1)]-500 hover:bg-slate-100",
       danger:
-          "bg-rose-500 text-primary-foreground hover:bg-green-500/90 border-green-600 border-b-4 active:border-b-0",
+          "bg-rose-500 text-primary-foreground hover:bg-[rgba(88,204,2,1)]-500/90 border-[rgba(88,204,2,1)]/90 border-b-4 active:border-b-0",
       dangerOutline:
           "bg-white text-rose-500 hover:bg-slate-100",
       super:
-          "bg-indigo-500 text-primary-foreground hover:bg-green-500/90 border-green-600 border-b-4 active:border-b-0",
+          "bg-indigo-500 text-primary-foreground hover:bg-[rgba(88,204,2,1)]-500/90 border-[rgba(88,204,2,1)]/90 border-b-4 active:border-b-0",
       superOutline:
           "bg-white text-indigo-500 hover:bg-slate-100",
       ghost:

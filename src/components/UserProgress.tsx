@@ -34,13 +34,13 @@ const UserProgress = ({activeCourse, hearts, points, hasActiveSubscription}: Pro
             </Link>
             <Link href='/shop'>
                 <Button variant='ghost' className='text-orange-500'>
-                    <Image className='mr-2' src='/points.png' width={28} height={28} alt='points'/>
+                    <Image className='mr-2' src='https://d35aaqx5ub95lt.cloudfront.net/images/gems/45c14e05be9c1af1d7d0b54c6eed7eee.svg' width={28} height={28} alt='points'/>
                     {points}
                 </Button>
             </Link>
             <Link href='/shop'>
                 <Button variant='ghost' className='text-rose-500'>
-                    <Image className='mr-2' src='/heart.png' width={28} height={28} alt='Hearts'/>
+                    <Image className='mr-2' src='https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg' width={28} height={28} alt='Hearts'/>
                     {hasActiveSubscription? <InfinityIcon className='h-4 w-4 stroke-3'/> : hearts}
                 </Button>
             </Link>

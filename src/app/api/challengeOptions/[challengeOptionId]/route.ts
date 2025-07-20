@@ -1,7 +1,7 @@
 import {eq} from "drizzle-orm";
 import {challengeOptions} from "../../../../../db/schema";
 import {NextResponse} from "next/server";
-import {getIsAdmin} from "@/lib/admin";
+
 import db from "../../../../../db/drizzle";
 
 import getServerUser from "@/lib/auth-server";
@@ -12,11 +12,7 @@ export const GET = async (req: Request, {params}: {params: {challengeOptionId: n
 
     if (!user)  return  new NextResponse('Unauthorized', {status: 403})
 
-    const isAdmin = getIsAdmin()
 
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 403})
-    }
 
 
 
@@ -34,11 +30,7 @@ export const PUT = async (req: Request, {params}: {params: {challengeOptionId: n
 
     if (!user)  return  new NextResponse('Unauthorized', {status: 403})
 
-    const isAdmin = getIsAdmin()
 
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 403})
-    }
 
     const body = await req.json()
 
@@ -57,10 +49,7 @@ export const DELETE = async (req: Request, {params}: {params: {challengeOptionId
 
     if (!user)  return  new NextResponse('Unauthorized', {status: 403})
 
-    const isAdmin = getIsAdmin()
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 403})
-    }
+
     const data = await db.delete(challengeOptions).where(eq(challengeOptions.id, params.challengeOptionId)).returning()
 
     return NextResponse.json(data[0])

@@ -90,7 +90,7 @@ function AuthForm({ mode }: AuthFormProps) {
             <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-green-500 rounded text-white py-2  hover:bg-green-600 transition"
+                className="w-full bg-[rgba(88,204,2,1)] rounded text-white py-2  hover:bg-[rgba(88,204,2,1)]/80 transition"
             >
                 {loading ? 'Загрузка...' : mode === 'login' ? 'Войти' : 'Зарегистрироваться'}
             </button>
@@ -105,11 +105,14 @@ function AuthForm({ mode }: AuthFormProps) {
                 </button>
             </div>
             <div className='text-sm cursor-pointer'>
-                <Link href={mode === 'login' ? '/sign-in' : '/sign-up'}>
+                {mode === 'register' ?   <Link href='/sign-in'>
+
+                    У вас уже есть аккаунт? Войти
+                </Link> : <Link href='/sign-up'>
+                    Впервые на duolingo? Зарегистироваться
+                </Link>}
 
 
-                    {mode === 'login' ?  'Впервые на duolingo? Зарегистироваться'  : 'У вас уже есть аккаунт? Войти'}
-                </Link>
             </div>
 
         </form>

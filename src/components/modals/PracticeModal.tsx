@@ -30,19 +30,24 @@ const PracticeModal = () => {
             <DialogContent className='max-w-md'>
                 <DialogHeader>
                     <div className='flex items-center w-full justify-center mb-5'>
-                        <Image src='/HEARTS.svg' alt='mascot' width={80} height={80}/>
+                        <Image src='https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg' alt='mascot' width={40} height={80}/>
+                        <Image src='https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg' alt='mascot' width={40} height={80}/>
+                        <Image src='https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg' alt='mascot' width={40} height={80}/>
+                        <Image src='https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg' alt='mascot' width={40} height={80}/>
+
+                        <Image src='https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg' alt='mascot' width={40} height={80}/>
+
                     </div>
                     <DialogTitle className='text-center font-bold text-2xl'>
-                       pRACTICE LESSON
+                       Урок для практики
                     </DialogTitle>
                     <DialogDescription>
-                        use practice lesson to regain hearts and points and u cannot loose hearts or point
-                    </DialogDescription>
+                       Используй такие уроки чтобы получать алмазы за которые ты можешь восполнять свои сердца</DialogDescription>
                 </DialogHeader>
                 <DialogFooter className='mb-4'>
                     <div className='flex flex-col gap-y-4 w-full'>
                         <Button onClick={close} variant='primary' className='w-full ' size='lg' >
-                           Got it\
+                           Понятно
                         </Button>
 
                     </div>

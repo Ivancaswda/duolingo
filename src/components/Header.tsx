@@ -65,7 +65,7 @@ const Header = () => {
 
                                 <Button asChild variant='secondary' size='lg'>
                                     <Link href='/learn'>
-                                        Continue learning
+                                        Продолжить учиться
                                     </Link>
                                 </Button>
                             </div>
@@ -73,7 +73,7 @@ const Header = () => {
                         ) : <div>
                             <Button variant='ghost'>
                             <Link href='/sign-in'>
-                                    Login
+                                    Войти
                                 </Link>
                             </Button>
                         </div>}

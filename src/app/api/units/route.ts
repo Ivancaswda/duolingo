@@ -12,10 +12,7 @@ export const GET = async  () => {
     if (!user) return
 
     const data = await db.query.units.findMany()
-    const isAdmin = await getIsAdmin()
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 401})
-    }
+
 
     return NextResponse.json(data)
 }
@@ -26,11 +23,7 @@ export const POST = async (req: Request) => {
 
     if (!user) return
 
-    const isAdmin = await getIsAdmin()
 
-    if (!isAdmin) {
-        return new NextResponse('Unauthorized', {status: 401})
-    }
 
     const body = await req.json()
 

@@ -30,14 +30,12 @@ const HeartsModal = () => {
             <DialogContent className='max-w-md'>
                 <DialogHeader>
                     <div className='flex items-center w-full justify-center mb-5'>
-                        <Image src='/mascot_bad.svg' alt='mascot' width={80} height={80}/>
+                        <Image src='https://d35aaqx5ub95lt.cloudfront.net/images/48d11e733b7b84a998e06460930feed7.svg' alt='mascot' width={80} height={80}/>
                     </div>
                     <DialogTitle className='text-center font-bold text-2xl'>
-                        Wait, dont go
+                        Похоже, у вас закончились жизни... Посетите в магазин что восполнить их
                     </DialogTitle>
-                    <DialogDescription>
-                        Yuy run out of hearts
-                    </DialogDescription>
+
                 </DialogHeader>
                 <DialogFooter className='mb-4'>
                     <div className='flex flex-col gap-y-4 w-full'>

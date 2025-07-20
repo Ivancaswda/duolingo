@@ -30,7 +30,7 @@ const CoursePage = async () => {
     return (
         <div className='max-w-[912px] px-3 mx-auto h-full'>
             <h1 className='text-2xl font-semibold text-neutral-700'>
-                Language
+               Язык
             </h1>
             <List  courses={data} activeCourseId={userProgress?.activeCourseId} />
 

@@ -24,19 +24,19 @@ const QuizFooter = ({onCheck, status, disabled, lessonId}: Props) => {
 
                 {status === 'correct' && <div className='flex items-center text-green-500 font-bold text-base lg:text-2xl'>
                     <CheckCircle className='h-6 w-6 lg:h-10 lg:w-10 mr-4'/>
-                    Nicely done!
+                    Молодец! Это правильно
                 </div>}
 
                 {status === 'wrong' && <div className='flex items-center text-rose-500 font-bold text-base lg:text-2xl'>
                     <XCircle className='h-6 w-6 lg:h-10 lg:w-10 mr-4'/>
-                    try again!
+                    Неправильно! Давай еще раз!
                 </div>}
-                {status === 'completed' && <Button variant='ghost'>Practice again</Button>}
+                {status === 'completed' && <Button variant='ghost'>Начать снова</Button>}
                 <Button variant={status === 'wrong' ? 'danger' : 'secondary'} disabled={disabled} className='ml-auto' onClick={onCheck} size={isMobile ? 'sm' : 'lg'}>
-                    {status === 'none' && 'Check'}
-                    {status === 'correct' && 'Next'}
-                    {status === 'wrong' && 'Retry'}
-                    {status === 'completed' && 'Continue'}
+                    {status === 'none' && 'Проверить'}
+                    {status === 'correct' && 'Дальше'}
+                    {status === 'wrong' && 'Еще раз'}
+                    {status === 'completed' && 'Продолжить'}
 
                 </Button>
             </div>

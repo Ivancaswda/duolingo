@@ -7,7 +7,7 @@ const MobileSidebar = () => {
     return (
         <Sheet>
             <SheetTrigger>
-                <Menu />
+                <Menu className='text-white cursor-pointer' />
             </SheetTrigger>
             <SheetContent className='p-0 z-[100]' side='left'>
                 <Sidebar className=''/>

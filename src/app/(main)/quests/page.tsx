@@ -43,13 +43,13 @@ const Page = async () => {
 
             <FeedWrapper>
                 <div className='flex flex-col items-center w-full'>
-                    <Image src='/leaderboard.png' alt='shop' width={90} height={90}
+                    <Image src='https://cdn-icons-png.flaticon.com/512/1409/1409014.png' alt='shop' width={90} height={90}
                     />
                     <h1 className='text-center font-bold text-neutral-800 text-2xl my-6'>
-                        Quests
+                        Задания
                     </h1>
                     <p className='text-muted-foreground text-center text-lg mb-6'>
-                        complete quests by learning things
+                       Выполните задания получая знания
                     </p>
 
                     <ul className='w-full'>
@@ -57,7 +57,7 @@ const Page = async () => {
                             const progress = (userProgressData.points / quest.value) * 100
                         return (
                             <div key={index} className='flex items-center w-full p-4 gap-x-4 border-t-2'>
-                                <Image src='/points.png'
+                                <Image src='https://d35aaqx5ub95lt.cloudfront.net/images/gems/45c14e05be9c1af1d7d0b54c6eed7eee.svg'
                                        alt='points'
                                        width={60}
                                        height={60}

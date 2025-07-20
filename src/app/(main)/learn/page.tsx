@@ -26,33 +26,28 @@ const LearnPage = async () => {
     console.log(userId)
     console.log(user)
     if (!user) {
-        return <div className='flex items-center justify-center w-full h-full
-        '>
-            <Loader2Icon className='animate-spin text-green-500'/>
-        </div>
+        redirect('/')
     }
     const userProgressData = await getUserProgress();
-     console.log(userProgressData)
+    console.log(userProgressData)
 
-   if (!userProgressData) {
-       redirect('/sign-in')
-   }
 
     const courseProgressData = await getCourseProgress();
-     console.log(courseProgressData)
-
-    const unitsData = await getUnits()
-    console.log(unitsData)
-    if (!unitsData || !courseProgressData) {
-        redirect('/courses')
-    }
+    console.log(courseProgressData)
     const lessonPercentageData = await getLessonPercentage();
     console.log(lessonPercentageData)
 
+    const unitsData = await getUnits()
+
+    if (!unitsData || unitsData.length === 0) {
+        redirect('/courses')
+    }
+
     const userSubscriptionData = await getUserSubscription()
 
+
     return (
-           <div className='flex flex-row-reverse gap-[48px] px-6'>
+        <div className='flex flex-row-reverse gap-[48px] px-6'>
               <StickyWrapper>
                 <UserProgress
                     activeCourse={userProgressData?.activeCourse}
@@ -64,15 +59,12 @@ const LearnPage = async () => {
                 <Quests points={userProgressData?.points}/>
             </StickyWrapper>
             <FeedWrapper>
-        <div className='flex-col flex gap-14 items-center'>
-
-
+                <HeaderLingo title={userProgressData?.activeCourse?.title || ''}/>
                 {unitsData?.map((unit) => (
                     <div key={unit?.id} className={'mb-10'}>
                         <Unit
                             id={unit?.id}
                             order={unit?.order}
-                            color={unit?.color}
                             description={unit?.description}
                             lessons={unit?.lessons}
                             title={unit?.title}
@@ -81,7 +73,6 @@ const LearnPage = async () => {
                         />
                     </div>
                 ))}
-        </div>
             </FeedWrapper>
         </div>
 

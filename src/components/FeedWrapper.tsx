@@ -6,7 +6,7 @@ type Props = {
 
 const FeedWrapper = ({children}: Props) => {
     return (
-        <div className='flex relative top-0 pb-10'>
+        <div className=''>
 
             {children}
         </div>

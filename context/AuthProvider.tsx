@@ -15,17 +15,22 @@ interface AuthContextType {
     setUser: () => void
     loading: boolean
     logout: () => void
+    isAdmin: boolean
+    setIsAdmin: () => void
 }
 
 export const AuthContext = createContext<AuthContextType>({
     user: null,
     loading: true,
     logout: () => {},
-    setUser: () => {}
+    setUser: () => {},
+    isAdmin: false,
+    setIsAdmin: () => {}
 })
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
+    const [isAdmin, setIsAdmin] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
@@ -61,7 +66,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, loading, logout, setUser }}>
+        <AuthContext.Provider value={{ user, loading, logout, setUser, isAdmin, setIsAdmin }}>
             {children}
         </AuthContext.Provider>
     )

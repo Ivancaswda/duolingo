@@ -43,13 +43,13 @@ const Page = async () => {
 
             <FeedWrapper>
                 <div className='flex flex-col items-center w-full'>
-                    <Image src='/leaderboard.png' alt='shop' width={90} height={90}
+                    <Image src='https://d35aaqx5ub95lt.cloudfront.net/vendor/ca9178510134b4b0893dbac30b6670aa.svg' alt='shop' width={90} height={90}
                     />
                     <h1 className='text-center font-bold text-neutral-800 text-2xl my-6'>
-                        Leaderboard
+                        Доска почета
                     </h1>
                     <p className='text-muted-foreground text-center text-lg mb-6'>
-                        see where u   stand among other member from the comminity
+                      Посмотрите на каком вы месте по почету среди нашей аудитории
                     </p>
                     <Separator>
                         {topTenUsersData.length === 1 ? <div className='text items-center flex w-full p-2 px-4 rounded-xl hover:bg-gray-200/50'

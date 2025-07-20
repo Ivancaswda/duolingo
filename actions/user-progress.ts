@@ -137,7 +137,7 @@ export const refillHearts = async () => {
         throw  new Error('not enought points')
     }
 
-    db.update(userProgress).set({
+    await db.update(userProgress).set({
         hearts: 5,
         points: currentUserProgress.points - points_to_refill,
     }).where(eq(userProgress.userId, currentUserProgress.userId))

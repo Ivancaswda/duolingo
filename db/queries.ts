@@ -20,6 +20,37 @@ export const getUserProgress = cache(async  () => {
     })
     return data
 })
+export const getUserProgressWithStats = cache(async () => {
+    const user = await getServerUser()
+    if (!user?.userId) return null
+
+    const progress = await getUserProgress()
+    if (!progress) return null
+
+    const units = await getUnits()
+    let completedLessons = 0
+    let completedUnits = 0
+
+    for (const unit of units) {
+        let allLessonsCompleted = true
+        for (const lesson of unit.lessons) {
+            if (lesson.completed) {
+                completedLessons++
+            } else {
+                allLessonsCompleted = false
+            }
+        }
+        if (allLessonsCompleted) {
+            completedUnits++
+        }
+    }
+
+    return {
+        ...progress,
+        completedLessons,
+        completedUnits,
+    }
+})
 
 export const getUnits = cache(async () => {
     const user = await getServerUser()

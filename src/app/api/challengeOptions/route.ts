@@ -2,8 +2,7 @@ import {NextResponse} from "next/server";
 
 import db from "../../../../db/drizzle";
 import {challengeOptions} from "../../../../db/schema";
-import {getIsAdmin} from "@/lib/admin";
-import {currentUser} from "@clerk/nextjs/server";
+
 import getServerUser from "@/lib/auth-server";
 
 export const GET = async  () => {
@@ -12,10 +11,7 @@ export const GET = async  () => {
     if (!user) return
 
     const data = await db.query.challengeOptions.findMany()
-    const isAdmin = await getIsAdmin()
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 401})
-    }
+
 
     return NextResponse.json(data)
 }
@@ -26,11 +22,7 @@ export const POST = async (req: Request) => {
 
     if (!user) return
 
-    const isAdmin = await getIsAdmin()
 
-    if (!isAdmin) {
-        return new NextResponse('Unauthorized', {status: 401})
-    }
 
     const body = await req.json()
 

@@ -1,12 +1,11 @@
 'use server'
-import {auth} from "@clerk/nextjs/server";
 import {getUserProgress, getUserSubscription} from "../db/queries";
 import db from "../db/drizzle";
 import {eq, and} from "drizzle-orm";
-import challenge from "@/components/Challenge";
 import {challengeProgress, challenges, userProgress} from "../db/schema";
 import {revalidatePath} from "next/cache";
 import getServerUser from "@/lib/auth-server";
+import {updateUserStats} from "./update-user-stats";
 
 export const upsertChallengeProgress = async (challengeId: number) => {
     const user = await getServerUser()
@@ -56,7 +55,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
             hearts: Math.min(currentUserProgress.hearts + 1, 5),
             points: currentUserProgress.points
         }).where(eq(userProgress.userId, userId))
-
+        await updateUserStats()
 
 
         revalidatePath('/learn')
@@ -76,6 +75,8 @@ export const upsertChallengeProgress = async (challengeId: number) => {
     await db.update(userProgress).set({
         points: currentUserProgress.points + 10
     }).where(eq(userProgress.userId, userId))
+    await updateUserStats()
+
 
     revalidatePath('/learn')
     revalidatePath('/lesson')

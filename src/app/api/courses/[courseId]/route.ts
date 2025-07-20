@@ -12,11 +12,6 @@ export const GET = async (req: Request, {params}: {params: {courseId: number}}) 
 
     if (!user)  return  new NextResponse('Unauthorized', {status: 403})
 
-    const isAdmin = await getIsAdmin()
-
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 403})
-    }
 
 
 
@@ -34,11 +29,7 @@ export const PUT = async (req: Request, {params}: {params: {courseId: number}}) 
 
     if (!user)  return  new NextResponse('Unauthorized', {status: 403})
 
-    const isAdmin = await getIsAdmin()
 
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 403})
-    }
 
     const body = await req.json()
 
@@ -57,10 +48,7 @@ export const DELETE = async (req: Request, {params}: {params: {courseId: number}
 
     if (!user)  return  new NextResponse('Unauthorized', {status: 403})
 
-    const isAdmin = getIsAdmin()
-    if (!isAdmin) {
-        return  new NextResponse('Unauthorized', {status: 403})
-    }
+
     const data = await db.delete(courses).where(eq(courses.id, params.courseId)).returning()
 
     return NextResponse.json(data[0])

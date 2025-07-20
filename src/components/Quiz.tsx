@@ -143,9 +143,9 @@ const Quiz = ({initialPercentage, initialHearts, initialLessonId,initialLessonCh
                 <div className='flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center justify-center  h-full items-center'>
 
 
-                    <Image src='/finish.png' width={50} height={50} alt={'Finish'} className='block lg:hiden'/>
+                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/BSicon_RACE.svg/1024px-BSicon_RACE.svg.png' width={50} height={50} alt={'Finish'} className='block lg:hiden'/>
                     <h1 className='text-xl lg:text-3xl font-bold text-neutral-700'>
-                        Great job! <br/> you &apos;ve completed the lesson
+                        Поздравляю! <br/> Вы завершили урок!
                     </h1>
                     <div className='flex items-center gap-x-4 w-full'>
                         <ResultCard variant='points' value={challenges.length * 10} />
@@ -157,7 +157,7 @@ const Quiz = ({initialPercentage, initialHearts, initialLessonId,initialLessonCh
         )
     }
 
-    const title = challenge.type === 'ASSIST' ? 'Select the correct answer' : challenge.question
+    const title = challenge.type === 'ASSIST' ? 'Выбери правильный ответ' : challenge.question
     console.log(challenge)
     return (
         <div>

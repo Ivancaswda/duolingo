@@ -102,7 +102,9 @@ export const userProgress = pgTable('user_progress', {
     userImageSrc: text('user_image_src').notNull().default('/mascot.png'),
     activeCourseId: integer("active_course_id").references(() => courses.id, {onDelete: 'cascade'}),
     hearts: integer('hearts').notNull().default(5),
-    points: integer('points').notNull().default(0)
+    points: integer('points').notNull().default(0),
+    completedLessons: integer('completed_lessons').notNull().default(0),
+    completedUnits: integer('completed_units').notNull().default(0),
 })
 
 

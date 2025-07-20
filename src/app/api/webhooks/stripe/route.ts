@@ -1,72 +1,76 @@
-import {headers} from "next/headers";
+// app/api/webhooks/stripe/route.ts
+import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import {stripe} from "@/lib/stripe";
-import {NextResponse} from "next/server";
-import {userSubscription} from "../../../../../db/schema";
 import db from "../../../../../db/drizzle";
+import {userSubscription} from "../../../../../db/schema";
 import {eq} from "drizzle-orm";
 
-export async function POST(req: Request) {
-    const body = await req.text()
-    const signature = headers().get('Stripe-Signature') as string;
 
-    let event: Stripe.Event;
 
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};
+
+const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
+    apiVersion: "2024-04-10",
+});
+
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+
+export async function POST(req: NextRequest) {
+    const rawBody = await req.arrayBuffer();
+    const bodyBuffer = Buffer.from(rawBody);
+    const sig = req.headers.get("stripe-signature") as string;
+
+    let event;
 
     try {
-        event =stripe.webhooks.constructEvent(
-            body,
-            signature,
-            process.env.STRIPE_WEBHOOK_SECRET!
-        )
-    } catch (error: any) {
-        return new NextResponse(`Webhook error: ${error.message}`, {
-            status: 400
-        })
+        event = stripe.webhooks.constructEvent(bodyBuffer, sig, endpointSecret);
+    } catch (err) {
+        console.error("Webhook signature error:", err);
+        return new NextResponse("Webhook Error", { status: 400 });
     }
+    console.log('agagasg')
+    console.log(event)
+    if (event.type === "checkout.session.completed") {
+        const session = event.data.object as Stripe.Checkout.Session;
 
-    const session = event.data.object as Stripe.Checkout.Session
-    if (event.type === 'checkout.session.completed') {
-        const subscription = await stripe.subscriptions.retrieve(
-            session.subscription as string
-        )
-
-        console.log(session)
-        console.log('it`s ession of stripee!!!')
+        const subscription = await stripe.subscriptions.retrieve(session.subscription as string)
 
 
-        if (!session?.metadata?.userId) {
-            return  new NextResponse("User Id is required", {status: 400})
+        console.log('payment success     ugadshgafsh !!!')
+        const userId = session.metadata?.userId;
 
+        if (userId) {
+            await db.insert(userSubscription).values({
+                userId: session.metadata?.userId,
+                stripeSubscriptionId: subscription.id,
+                stripeCustomerId: subscription.customer as string,
+                stripePriceId: subscription.items.data[0].price.id,
+                stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000)
+
+            })
         }
-
-        console.log(subscription)
-        console.log(session.metadata.userId)
-        console.log(session)
-
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-
-        await db.insert(userSubscription).values({
-            userId: session.metadata.userId,
-            stripeSubscriptionId: subscription.id,
-            stripeCustomerId: subscription.customer as string,
-            stripePriceId: subscription.items.data[0].price.id,
-            stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000)
-        })
-
-
-
     }
 
     if (event.type === 'invoice.payment_succeeded') {
-        const subscription = await stripe.subscriptions.retrieve(session.subscription as string)
+        const subscription = event.data.object as Stripe.Invoice
+        const stripeSub = await stripe.subscriptions.retrieve(subscription.subscription as string)
 
-        console.log(subscription)
         await db.update(userSubscription).set({
-            stripePriceId: subscription.items.data[0].price.id,
-            stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000)
-        }).where(eq(userSubscription.stripeSubscriptionId, subscription.id))
+            stripePriceId: stripeSub.items.data[0].price.id,
+            stripeCurrentPeriodEnd: new Date(stripeSub.current_period_end * 1000)
+        }).where(eq(userSubscription.stripeSubscriptionId, stripeSub.id))
     }
-    return  new NextResponse(null, {status: 200})
+    if (event.type === "customer.subscription.deleted") {
+        const subscription = event.data.object as Stripe.Subscription;
 
+        await db.delete(userSubscription).where(
+            eq(userSubscription.stripeSubscriptionId, subscription.id)
+        );
+    }
+
+    return NextResponse.json(null, { status:200 });
 }

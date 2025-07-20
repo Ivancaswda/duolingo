@@ -30,25 +30,23 @@ const ExitModal = () => {
             <DialogContent className='max-w-md'>
                 <DialogHeader>
                     <div className='flex items-center w-full justify-center mb-5'>
-                        <Image src='/mascot_sad.svg' alt='mascot' width={80} height={80}/>
+                        <Image src='https://d35aaqx5ub95lt.cloudfront.net/images/ed9f592a37a6ce248be0beec9c13a0e1.svg' alt='mascot' width={120} height={120}/>
                     </div>
                     <DialogTitle className='text-center font-bold text-2xl'>
-                        Wait, dont go
+                        Постойте! Куда же вы? Если закончить сейчас, прогресс не сохранится.
                     </DialogTitle>
-                    <DialogDescription>
-                        You about to leave the lesson are u sure
-                    </DialogDescription>
+
                 </DialogHeader>
                 <DialogFooter className='mb-4'>
                     <div className='flex flex-col gap-y-4 w-full'>
                         <Button variant='primary' className='w-full ' size='lg' onClick={close}>
-                            Keep learneing
+                            Продолжить учёбу
                         </Button>
                         <Button variant='dangerOutline' className='w-full ' size='lg' onClick={() => {
                             close()
                             router.push('/learn')
                         }}>
-                            End session
+                           Выйти
                         </Button>
                     </div>
 
